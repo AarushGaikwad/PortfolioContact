@@ -2,7 +2,7 @@
 FROM maven:3.9.6-eclipse-temurin-17 AS builder
 
 WORKDIR /app
-COPY . .    
+COPY . .
 RUN mvn clean package -DskipTests
 
 # Second step: use a small Java image to run the app
