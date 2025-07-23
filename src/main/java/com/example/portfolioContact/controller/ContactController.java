@@ -2,6 +2,7 @@ package com.example.portfolioContact.controller;
 
 import com.example.portfolioContact.dto.ContactRequest;
 import com.example.portfolioContact.service.EmailService;
+import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,11 @@ public class ContactController {
 
     @PostMapping
     public String sendContact(@Valid @RequestBody ContactRequest request){
-        emailService.sendContactEmail(request);
+        try {
+            emailService.sendContactEmail(request);
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
         return  "Message sent Successfully!";
     }
 }
