@@ -5,6 +5,7 @@ import com.example.portfolioContact.service.EmailService;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*")
@@ -16,12 +17,14 @@ public class ContactController {
     private final EmailService emailService;
 
     @PostMapping
-    public String sendContact(@Valid @RequestBody ContactRequest request){
+    public ResponseEntity<?> sendContact(@Valid @RequestBody ContactRequest request){
         try {
             emailService.sendContactEmail(request);
+            return ResponseEntity.ok("Message sent Successfully!");
         } catch (MessagingException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("Failed to sent message: " + e.getMessage());
         }
-        return  "Message sent Successfully!";
+
     }
 }

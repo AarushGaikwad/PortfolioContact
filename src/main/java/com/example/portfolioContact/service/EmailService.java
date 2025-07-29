@@ -46,7 +46,8 @@ public class EmailService {
 
             mailSender.send(mimeMessage);
         } catch (MessagingException e){
-            throw new RuntimeException("Failed to send email");
+            log.error("Failed to sent the email", e);
+            throw new MessagingException("Email error: " + e.getMessage());
         }
     }
 }
