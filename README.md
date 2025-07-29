@@ -89,7 +89,7 @@ logging.level.com.example.portfolioContact=DEBUG
 
 ```bash
 git clone <repository-url>
-cd portfolio-contact-backend
+cd repository-name
 ```
 
 ### 2. Configure Environment Variables
